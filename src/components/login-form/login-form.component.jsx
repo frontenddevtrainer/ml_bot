@@ -17,7 +17,6 @@ const LoginForm = () => {
   return (
     <form onSubmit={submit}>
       <TextInput
-        label="Email"
         name="email"
         change={(value) => {
           setFormData({ ...formdata, email: value });
