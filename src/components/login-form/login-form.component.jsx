@@ -10,26 +10,30 @@ const LoginForm = () => {
     console.log(formdata);
   };
 
-  const onChange = (value) => {
-    console.log(value, "on change");
-  };
+  const controls = [
+    { name: "email", label: "Email" },
+    { name: "password", type: "password", label: "Password" },
+    { name: "confirm-password", type: "password", label: "Confirm Password" },
+  ];
 
   return (
     <form onSubmit={submit}>
-      <TextInput
-        name="email"
-        change={(value) => {
-          setFormData({ ...formdata, email: value });
-        }}
-      />
-      <TextInput
-        label="Password"
-        type="password"
-        name="password"
-        change={(value) => {
-          setFormData({ ...formdata, password: value });
-        }}
-      />
+      {controls.length > 0
+        ? controls.map((item, index) => {
+            return (
+              <TextInput
+                key={item.name}
+                label={item.label}
+                type={item.type}
+                name={item.name}
+                change={(value) => {
+                  setFormData({ ...formdata, [item.name]: value });
+                }}
+              />
+            );
+          })
+        : "No controls found"}
+
       <Button label="login" type="submit"></Button>
     </form>
   );
