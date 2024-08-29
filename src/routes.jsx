@@ -1,13 +1,14 @@
+import HomepageScreen from "./screens/homepage/homepage.component";
 import LoginScreen from "./screens/login/login.component";
 
 export const routes = [
   {
     path: "/",
-    element: <div className="p-10">Homepage</div>,
+    element: <HomepageScreen />,
   },
   {
     path: "/login",
-    element: <LoginScreen/>,
+    element: <LoginScreen />,
   },
   {
     path: "/chat",
