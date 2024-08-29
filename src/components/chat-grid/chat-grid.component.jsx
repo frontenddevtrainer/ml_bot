@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 const ChatGrid = () => {
   const chats = [
     {
@@ -18,7 +20,9 @@ const ChatGrid = () => {
       {chats.map((chat) => {
         return (
           <div key={chat.id} className="bg-white p-6 rounded-lg shadow-md">
-            <p className="text-center text-gray-800">{chat.heading}</p>
+            <p className="text-center text-gray-800">
+                <Link to={`/chat/${chat.id}`}>{chat.heading}</Link>
+            </p>
           </div>
         );
       })}
