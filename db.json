@@ -1,0 +1,20 @@
+{
+  "chats": [
+    {
+      "id": "1",
+      "heading": "how to create react component",
+      "messages": [
+        {
+          "id": "1",
+          "text": "how to create react component",
+          "sender": "user"
+        },
+        {
+          "id": "2",
+          "text": "create new file as chat.component.jsx",
+          "sender": "bot"
+        }
+      ]
+    }
+  ]
+}

@@ -1,15 +1,10 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import useChatMessages from "../../hooks/useChatMessages";
 
 const ChatPage = () => {
-  const params = useParams();
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      text: "Hello! How can I help you?",
-      sender: "bot",
-    },
-  ]);
+  const { id } = useParams();
+  const { loading, messages, error } = useChatMessages(id)
 
   const [input, setInput] = useState("");
 
@@ -23,13 +18,14 @@ const ChatPage = () => {
           sender: "user",
         },
       ]);
-      setInput("")
+      setInput("");
     }
   };
 
   return (
     <div className="flex flex-col h-full">
       <div className="flex-1 bg-gray-200 rounded-lg p-4">
+        {loading && "Loading..."}
         {messages.map((message) => {
           return (
             <div
