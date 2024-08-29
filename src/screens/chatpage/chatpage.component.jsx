@@ -1,24 +1,27 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import useChatMessages from "../../hooks/useChatMessages";
+import useChatSendMessage from "../../hooks/useChatSendMessage";
 
 const ChatPage = () => {
   const { id } = useParams();
   const { loading, messages, error } = useChatMessages(id)
+  const { loading : sendLoading, data, send } = useChatSendMessage(id); 
 
   const [input, setInput] = useState("");
 
   const handleSend = () => {
     if (input.trim()) {
-      setMessages([
-        ...messages,
-        {
-          id: Date.now(),
-          text: input,
-          sender: "user",
-        },
-      ]);
+    //   setMessages([
+    //     ...messages,
+    //     {
+    //       id: Date.now(),
+    //       text: input,
+    //       sender: "user",
+    //     },
+    //   ]);
       setInput("");
+      send(input);
     }
   };
 
