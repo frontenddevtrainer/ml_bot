@@ -17,7 +17,7 @@ const LoginForm = () => {
   ];
 
   return (
-    <form onSubmit={submit}>
+    <form className="p-10" onSubmit={submit}>
       {controls.length > 0
         ? controls.map((item, index) => {
             return (
