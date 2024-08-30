@@ -1,31 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import useChatMessages from "../../hooks/useChatMessages";
-import useChatSendMessage from "../../hooks/useChatSendMessage";
-import { useDispatch } from "react-redux";
-import { increase } from "../../store/slices/application.slice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getChatMessages,
+  sendChatMessage,
+} from "../../store/slices/chat.slice";
 
 const ChatPage = () => {
   const { id } = useParams();
-  const { loading, messages, error } = useChatMessages(id)
-  const { loading : sendLoading, data, send } = useChatSendMessage(id); 
+  // const { loading, messages, error } = useChatMessages(id)
+  // const { loading : sendLoading, data, send } = useChatSendMessage(id);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getChatMessages(id));
+  }, [id]);
+
+  const { messages, loading } = useSelector((state) => {
+    const { chat } = state;
+    const { messages } = chat.messages;
+    const loading = chat.loading;
+    return { messages, loading };
+  });
 
   const [input, setInput] = useState("");
 
   const handleSend = () => {
     if (input.trim()) {
-    //   setMessages([
-    //     ...messages,
-    //     {
-    //       id: Date.now(),
-    //       text: input,
-    //       sender: "user",
-    //     },
-    //   ]);
+      dispatch(sendChatMessage({ id, message: input }));
       setInput("");
-      send(input);
     }
   };
 
@@ -33,20 +37,21 @@ const ChatPage = () => {
     <div className="flex flex-col h-full">
       <div className="flex-1 bg-gray-200 rounded-lg p-4">
         {loading && "Loading..."}
-        {messages.map((message) => {
-          return (
-            <div
-              key={message.id}
-              className={`mb-4 p-4 max-w-xs rounded-md ${
-                message.sender === "bot"
-                  ? "mr-auto bg-gray-300"
-                  : "ml-auto bg-blue-500 text-white"
-              }`}
-            >
-              {message.text}
-            </div>
-          );
-        })}
+        {messages &&
+          messages.map((message) => {
+            return (
+              <div
+                key={message.id}
+                className={`mb-4 p-4 max-w-xs rounded-md ${
+                  message.sender === "bot"
+                    ? "mr-auto bg-gray-300"
+                    : "ml-auto bg-blue-500 text-white"
+                } ${message.error ? 'text-red-700': ""}`}
+              >
+                {message.text}
+              </div>
+            );
+          })}
       </div>
       <div className="mt-4 flex items-center p-4 bg-white rounded-md shadow-md">
         <input
@@ -64,9 +69,9 @@ const ChatPage = () => {
         >
           Send
         </button>
-        <button onClick={()=>{
+        {/* <button onClick={()=>{
           dispatch(increase())
-        }}>Increase Counter</button>
+        }}>Increase Counter</button> */}
       </div>
     </div>
   );

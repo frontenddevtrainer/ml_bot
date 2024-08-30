@@ -3,10 +3,10 @@ import { useSelector } from "react-redux";
 const Header = () => {
 
   // state = store
-  const counter = useSelector((state)=>{
-    const { application } = state;
-    const { counter } = application;
-    return counter;
+  const messages = useSelector((state)=>{
+    const { chat } = state;
+    const { messages } = chat.messages;
+    return messages;
   })
 
   return (
@@ -17,7 +17,7 @@ const Header = () => {
       <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-800">
         +
       </button>
-      counter is {counter}
+      Total messages: {messages ? messages.length : 0}
     </header>
   );
 };
