@@ -12,10 +12,10 @@ const router = createBrowserRouter(routes);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router}>
-      <ReduxProvider store={store}>
+    <ReduxProvider store={store}>
+      <RouterProvider router={router}>
         <App />
-      </ReduxProvider>
-    </RouterProvider>
+      </RouterProvider>
+    </ReduxProvider>
   </StrictMode>
 );

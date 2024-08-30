@@ -1,4 +1,14 @@
+import { useSelector } from "react-redux";
+
 const Header = () => {
+
+  // state = store
+  const counter = useSelector((state)=>{
+    const { application } = state;
+    const { counter } = application;
+    return counter;
+  })
+
   return (
     <header className="flex justify-between items-center bg-white p-4 rounded-md shadow-md mb-8">
       <div className="flex items-center">
@@ -7,6 +17,7 @@ const Header = () => {
       <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-800">
         +
       </button>
+      counter is {counter}
     </header>
   );
 };

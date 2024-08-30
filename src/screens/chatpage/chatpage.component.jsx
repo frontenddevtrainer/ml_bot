@@ -2,11 +2,15 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import useChatMessages from "../../hooks/useChatMessages";
 import useChatSendMessage from "../../hooks/useChatSendMessage";
+import { useDispatch } from "react-redux";
+import { increase } from "../../store/slices/application.slice";
 
 const ChatPage = () => {
   const { id } = useParams();
   const { loading, messages, error } = useChatMessages(id)
   const { loading : sendLoading, data, send } = useChatSendMessage(id); 
+
+  const dispatch = useDispatch();
 
   const [input, setInput] = useState("");
 
@@ -60,6 +64,9 @@ const ChatPage = () => {
         >
           Send
         </button>
+        <button onClick={()=>{
+          dispatch(increase())
+        }}>Increase Counter</button>
       </div>
     </div>
   );
