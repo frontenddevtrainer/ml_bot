@@ -6,6 +6,8 @@ import {
   sendChatMessage,
 } from "../../store/slices/chat.slice";
 
+import usePermissions from "../../hooks/usePermissions"
+
 const ChatPage = () => {
   const { id } = useParams();
   // const { loading, messages, error } = useChatMessages(id)
@@ -33,6 +35,10 @@ const ChatPage = () => {
     }
   };
 
+  const sendChat = usePermissions("sendchat");
+
+  console.log(sendChat);
+
   return (
     <div className="flex flex-col h-full">
       <div className="flex-1 bg-gray-200 rounded-lg p-4">
@@ -46,7 +52,7 @@ const ChatPage = () => {
                   message.sender === "bot"
                     ? "mr-auto bg-gray-300"
                     : "ml-auto bg-blue-500 text-white"
-                } ${message.error ? 'text-red-700': ""}`}
+                } ${message.error ? "text-red-700" : ""}`}
               >
                 {message.text}
               </div>
@@ -64,8 +70,9 @@ const ChatPage = () => {
           }}
         />
         <button
+          disabled={!sendChat}
           onClick={handleSend}
-          className="ml-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-800"
+          className={`ml-4  text-white px-4 py-2 rounded-md  ${!sendChat ? "bg-gray-600" : "bg-blue-500 hover:bg-blue-800"}`}
         >
           Send
         </button>
