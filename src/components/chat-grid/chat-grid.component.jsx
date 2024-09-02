@@ -2,9 +2,12 @@ import { Link } from "react-router-dom";
 import { ThemeOptions, useTheme } from "../../hooks/useTheme";
 import classNames from "classnames";
 import { useChats } from "../../hooks/useChat";
+import { LANGAUGES, useTranslate } from "../../hooks/useTranslate";
 
 const ChatGrid = () => {
   const { theme } = useTheme();
+
+  const { translate, change } = useTranslate();
 
   const containerClasses = classNames(
     "p-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4",
@@ -33,7 +36,22 @@ const ChatGrid = () => {
           );
         })}
 
-        <button onClick={get}>Refresh</button>
+      <button onClick={get}>{translate("REFRESH")}</button>
+      <button
+        onClick={() => {
+          change(LANGAUGES.HINDI);
+        }}
+      >
+        Hindi
+      </button>
+      <button
+        onClick={() => {
+          change(LANGAUGES.ENGLISH);
+        }}
+      >
+        English
+      </button>
+      <div></div>
     </div>
   );
 };
