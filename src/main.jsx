@@ -7,15 +7,19 @@ import store from "./store/store.js";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { routes } from "./routes.jsx";
+import { ThemeProvider } from "./hooks/useTheme";
 
 const router = createBrowserRouter(routes);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <ReduxProvider store={store}>
-      <RouterProvider router={router}>
-        <App />
-      </RouterProvider>
-    </ReduxProvider>
+    <ThemeProvider>
+      <ReduxProvider store={store}>
+        <RouterProvider router={router}>
+          <App />
+          {/* children */}
+        </RouterProvider>
+      </ReduxProvider>
+    </ThemeProvider>
   </StrictMode>
 );

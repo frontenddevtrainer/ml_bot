@@ -1,6 +1,9 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import { ThemeOptions, useTheme } from "../../hooks/useTheme";
 
 const ChatGrid = () => {
+  const { theme } = useTheme();
+
   const chats = [
     {
       id: 1,
@@ -16,12 +19,16 @@ const ChatGrid = () => {
     },
   ];
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+    <div
+      className={`p-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 ${
+        theme === ThemeOptions.LIGHT ? "bg-white" : "bg-slate-400"
+      }`}
+    >
       {chats.map((chat) => {
         return (
           <div key={chat.id} className="bg-white p-6 rounded-lg shadow-md">
             <p className="text-center text-gray-800">
-                <Link to={`/chat/${chat.id}`}>{chat.heading}</Link>
+              <Link to={`/chat/${chat.id}`}>{chat.heading}</Link>
             </p>
           </div>
         );
@@ -30,4 +37,4 @@ const ChatGrid = () => {
   );
 };
 
-export default ChatGrid
+export default ChatGrid;
