@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ThemeOptions, useTheme } from "../../hooks/useTheme";
 import classNames from "classnames";
+import { useChats } from "../../hooks/useChat";
 
 const ChatGrid = () => {
   const { theme } = useTheme();
@@ -18,31 +19,21 @@ const ChatGrid = () => {
     "bg-slate-600": theme === ThemeOptions.DARK,
   });
 
-  const chats = [
-    {
-      id: 1,
-      heading: "how to create react component",
-    },
-    {
-      id: 2,
-      heading: "distance to moon",
-    },
-    {
-      id: 3,
-      heading: "convert miles to kilometer",
-    },
-  ];
+  const { chats, get } = useChats();
   return (
     <div className={containerClasses}>
-      {chats.map((chat) => {
-        return (
-          <div key={chat.id} className={gridItemClass}>
-            <p className="text-center text-gray-800">
-              <Link to={`/chat/${chat.id}`}>{chat.heading}</Link>
-            </p>
-          </div>
-        );
-      })}
+      {chats &&
+        chats.map((chat) => {
+          return (
+            <div key={chat.id} className={gridItemClass}>
+              <p className="text-center text-gray-800">
+                <Link to={`/chat/${chat.id}`}>{chat.heading}</Link>
+              </p>
+            </div>
+          );
+        })}
+
+        <button onClick={get}>Refresh</button>
     </div>
   );
 };

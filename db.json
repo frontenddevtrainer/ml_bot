@@ -15,6 +15,22 @@
           "sender": "bot"
         }
       ]
+    },
+    {
+      "id": "2",
+      "heading": "how to create context",
+      "messages": [
+        {
+          "id": "1",
+          "text": "how to create react component",
+          "sender": "user"
+        },
+        {
+          "id": "2",
+          "text": "create new file as chat.component.jsx",
+          "sender": "bot"
+        }
+      ]
     }
   ]
 }
